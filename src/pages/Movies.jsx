@@ -14,12 +14,6 @@ const Movie = ({ apiKey }) => {
   const search = searchParams.get('search') ?? '';
   const [textSearch, setTextSearch] = useState('');
 
-  useEffect(() => {
-    if (search !== '') {
-      onSubmit(search);
-    }
-  });
-
   const StyledLink = styled(NavLink)`
     color: black;
 
@@ -28,35 +22,56 @@ const Movie = ({ apiKey }) => {
     }
   `;
 
-  const onSubmit = search => {
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${search}`
-    )
-      .then(response => response.json())
-      .catch(error => console.log(error))
-      .then(result => setSearchResult(result.results));
-  };
+  useEffect(() => {
+    if (search !== '') {
+      setTextSearch(search);
+      fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=75c24a83ea1b0d719afcd7ae1388bd28&language=en-US&page=1&include_adult=false&query=${search}`
+      )
+        .then(response => response.json())
+        .catch(error => console.log(error))
+        .then(result => setSearchResult(result.results));
+    }
+  }, [search]);
 
-  const searchSubmit = event => {
+  const onSubmit = event => {
     event.preventDefault();
-
-    setSearch(textSearch);
+    setSearchParams(textSearch !== '' ? { search: textSearch } : {});
 
     if (textSearch.trim() === '') {
       alert('Строка запроса пуста');
       return;
     }
 
-    onSubmit(search);
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${textSearch}`
+    )
+      .then(response => response.json())
+      .catch(error => console.log(error))
+      .then(result => setSearchResult(result.results));
   };
 
-  const setSearch = value => {
-    setSearchParams(value !== '' ? { search: value } : {});
-  };
+  // const searchSubmit = event => {
+  //   event.preventDefault();
+
+  //   // setSearch(textSearch);
+  //   // setSearchParams(textSearch !== '' ? { search: textSearch } : {});
+
+  //   // if (textSearch.trim() === '') {
+  //   //   alert('Строка запроса пуста');
+  //   //   return;
+  //   // }
+
+  //   onSubmit(search);
+  // };
+
+  // const setSearch = value => {
+  //   setSearchParams(value !== '' ? { search: value } : {});
+  // };
 
   return (
     <div>
-      <form onSubmit={searchSubmit}>
+      <form onSubmit={onSubmit}>
         <button type="submit">Search</button>
         <input type="text" onChange={e => setTextSearch(e.target.value)} />
       </form>
