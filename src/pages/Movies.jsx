@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import SearchBox from 'components/SearchBox';
+
 import propTypes from 'prop-types';
 
 const Movie = ({ apiKey }) => {
@@ -18,7 +18,7 @@ const Movie = ({ apiKey }) => {
     if (search !== '') {
       onSubmit(search);
     }
-  }, [searchParams]);
+  });
 
   const StyledLink = styled(NavLink)`
     color: black;
