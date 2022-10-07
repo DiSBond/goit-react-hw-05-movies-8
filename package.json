@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-05-movie-8",
+  "name": "goit-react-hw-05-movies-8",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://disbond.github.io/goit-react-hw-05-movie-8/",
+  "homepage": "https://disbond.github.io/goit-react-hw-05-movies-8/",
   "dependencies": {
     "@emotion/css": "^11.10.0",
     "@emotion/react": "^11.10.4",
