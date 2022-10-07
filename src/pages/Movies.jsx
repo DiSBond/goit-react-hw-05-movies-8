@@ -20,7 +20,7 @@ const Movie = ({ apiKey }) => {
     }
   `;
 
-  const onSubmit = searchMovie => {
+  const onSubmit = search => {
     fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${search}`
     )
