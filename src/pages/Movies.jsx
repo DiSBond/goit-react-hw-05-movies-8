@@ -33,7 +33,7 @@ const Movie = ({ apiKey }) => {
     if (search !== '') {
       onSubmit(search);
     }
-  });
+  }, []);
 
   const searchSubmit = event => {
     event.preventDefault();
