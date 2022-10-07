@@ -12,6 +12,14 @@ const Movie = ({ apiKey }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') ?? '';
+  const [textSearch, setTextSearch] = useState('');
+
+  useEffect(() => {
+    if (search !== '') {
+      onSubmit(search);
+    }
+  }, [searchParams]);
+
   const StyledLink = styled(NavLink)`
     color: black;
 
@@ -29,16 +37,12 @@ const Movie = ({ apiKey }) => {
       .then(result => setSearchResult(result.results));
   };
 
-  useEffect(() => {
-    if (search !== '') {
-      onSubmit(search);
-    }
-  }, [onSubmit, search]);
-
   const searchSubmit = event => {
     event.preventDefault();
 
-    if (search.trim() === '') {
+    setSearch(textSearch);
+
+    if (textSearch.trim() === '') {
       alert('Строка запроса пуста');
       return;
     }
@@ -54,20 +58,21 @@ const Movie = ({ apiKey }) => {
     <div>
       <form onSubmit={searchSubmit}>
         <button type="submit">Search</button>
-        <SearchBox onChange={setSearch} />
+        <input type="text" onChange={e => setTextSearch(e.target.value)} />
       </form>
       <div>
         <ul>
-          {searchResult.map(item => {
-            const path = `/Movie/${item.id}`;
-            return (
-              <li key={item.id}>
-                <StyledLink to={path} state={{ from: location }}>
-                  {item.title}
-                </StyledLink>
-              </li>
-            );
-          })}
+          {searchResult &&
+            searchResult.map(item => {
+              const path = `/Movie/${item.id}`;
+              return (
+                <li key={item.id}>
+                  <StyledLink to={path} state={{ from: location }}>
+                    {item.title}
+                  </StyledLink>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>
