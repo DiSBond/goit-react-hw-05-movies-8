@@ -18,20 +18,24 @@ const Cast = ({ apiKey }) => {
   return (
     <div>
       <ul>
-        {cast.map(actor => {
-          const imagePath = () => {
-            if (actor.profile_path) {
-              return `https://image.tmdb.org/t/p/w200${actor.profile_path}`;
-            }
-          };
-          return (
-            <li key={actor.id}>
-              <img src={imagePath()} alt="" />
-              <p>{actor.name}</p>
-              <p>{actor.character}</p>
-            </li>
-          );
-        })}
+        {cast.length ? (
+          cast.map(actor => {
+            const imagePath = () => {
+              if (actor.profile_path) {
+                return `https://image.tmdb.org/t/p/w200${actor.profile_path}`;
+              }
+            };
+            return (
+              <li key={actor.id}>
+                <img src={imagePath()} alt="" />
+                <p>{actor.name}</p>
+                <p>{actor.character}</p>
+              </li>
+            );
+          })
+        ) : (
+          <p>No information about cast</p>
+        )}
       </ul>
     </div>
   );

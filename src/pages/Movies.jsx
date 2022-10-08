@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import propTypes from 'prop-types';
@@ -14,7 +14,7 @@ const Movie = ({ apiKey }) => {
   const search = searchParams.get('search') ?? '';
   const [textSearch, setTextSearch] = useState('');
 
-  const StyledLink = styled(NavLink)`
+  const StyledLink = styled(Link)`
     color: black;
 
     &.active {
@@ -50,24 +50,6 @@ const Movie = ({ apiKey }) => {
       .catch(error => console.log(error))
       .then(result => setSearchResult(result.results));
   };
-
-  // const searchSubmit = event => {
-  //   event.preventDefault();
-
-  //   // setSearch(textSearch);
-  //   // setSearchParams(textSearch !== '' ? { search: textSearch } : {});
-
-  //   // if (textSearch.trim() === '') {
-  //   //   alert('Строка запроса пуста');
-  //   //   return;
-  //   // }
-
-  //   onSubmit(search);
-  // };
-
-  // const setSearch = value => {
-  //   setSearchParams(value !== '' ? { search: value } : {});
-  // };
 
   return (
     <div>
